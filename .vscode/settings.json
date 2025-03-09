@@ -1,0 +1,14 @@
+{
+    "liveServer.settings.port": 5500,
+    "liveServer.settings.CustomBrowser": "chrome",
+    "workbench.externalBrowser": "chrome",
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[js]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}
