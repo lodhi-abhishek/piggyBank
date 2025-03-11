@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:400,700,900"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="resources/css/reset.min.css" />
+    <link rel="stylesheet" href="resources/css/style.css" />
+
+    <title>TimeLine - PiggyBank</title>
+  </head>
+  <body>
+    <div class="sidebar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li onclick="clearData()">Clear Data</li>
+      </ul>
+    </div>
+
+    <div class="sidebar-overlay" id="sideBarOverlay"></div>
+
+    <div class="container">
+      <div class="menu-icon" id="btnMenu">
+        <i class="material-icons">sort</i>
+      </div>
+
+      <div class="center">
+        <div class="savings-container">
+          <div class="savings" id="txtSavings">$200</div>
+          <div class="in-savings">In Savings</div>
+        </div>
+      </div>
+    </div>
+
+    <ul class="timeline" id="listTimeline"></ul>
+    <script src="resources/scripts/flow.js"></script>
+  </body>
+</html>
