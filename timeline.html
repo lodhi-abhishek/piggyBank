@@ -43,6 +43,24 @@
 
     <ul class="timeline" id="listTimeline"></ul>
     <script src="resources/scripts/flow.js"></script>
-    <script src="resources/scripts/script.js"></script>
+    <script type="text/javascript">
+      var collect = localStorage.getItem("appCollect")
+        ? JSON.parse(localStorage.getItem("appCollect"))
+        : {
+            timeline: [],
+          };
+
+      var savings = 0;
+      for (var i = 0; i < collect.timeline.length; i++) {
+        var amount = collect.timeline[i].amount;
+        if (collect.timeline[i].type == "deposit") savings = savings + amount;
+        else savings = savings - amount;
+      }
+      document.getElementById("txtSavings").innerText = savings
+        .toLocaleString("en-US", { style: "currency", currency: "USD" })
+        .split(".")[0];
+
+      renderTimeLine(collect.timeline);
+    </script>
   </body>
 </html>
