@@ -102,7 +102,7 @@ body {
   height: 50px;
   width: 40%;
   cursor: pointer;
-  
+
   position: relative;
   z-index: 10;
 
@@ -245,3 +245,87 @@ body {
   visibility: hidden;
   transition: all 0.5s ease;
 }
+
+/* timeline css */
+
+.timeline {
+  margin: 0 1.7rem;
+  margin-top: 3.2rem;
+}
+
+/* If timeline had to child element*/
+.timeline:empty::before {
+  content: "No Transactions";
+  display: block;
+  font-family: "Lato", sans-serif;
+  text-align: center;
+  color: #c9b3bd;
+}
+
+.timeline:empty + .view-timeline {
+  display: none;
+}
+
+.timeline li {
+  font-family: "Lato", sans-serif;
+  position: relative;
+
+  margin: 1.2rem 0;
+}
+
+.timeline li::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 10px;
+  background-color: #f393bc;
+  float: left;
+
+  position: absolute;
+  top: 40%;
+}
+
+.timeline li .title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #56414b;
+  margin-left: 1.5rem;
+}
+
+.timeline li .time {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #d5c2ca;
+
+  margin-left: 0.3rem;
+}
+
+.timeline li .amount {
+  float: right;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.timeline li.deposit .amount {
+  color: #89de8d;
+}
+
+.timeline li.withdraw .amount {
+  color: #f393bc;
+}
+
+.view-timeline {
+  display: block;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.2rem;
+  text-align: center;
+  color: #c9b3bd;
+
+  user-select: none;
+  margin: 2rem 0;
+  cursor: pointer;
+}
+
+/** charts css **/
