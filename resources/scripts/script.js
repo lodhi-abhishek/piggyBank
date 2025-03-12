@@ -1,8 +1,3 @@
-function clearData() {
-  localStorage.setItem("appCollect", "");
-  window.location.reload();
-}
-
 let collect = localStorage.getItem("appCollect")
   ? JSON.parse(localStorage.getItem("appCollect"))
   : {
@@ -42,7 +37,7 @@ document.getElementById("txtSavings").innerText = savings
 
 /**
  *
- * Feed Form Logic
+ * Feed form button Logic
  * */
 
 document.getElementById("btnFeed").addEventListener("click", function () {
@@ -105,11 +100,11 @@ document.querySelector("#btnClose").addEventListener("click", closeFeedForm);
 
 renderTimeLine(collect.timeline, 5);
 
-// Feed from Logic
+// Feed form Logic
 
 function newFeed(amount, type) {
   amount = Number(amount);
-  if (type == "withdraw" && saving < amount) {
+  if (type == "withdraw" && savings < amount) {
     alert("Insufficient balance");
     return;
   }
@@ -127,4 +122,40 @@ function newFeed(amount, type) {
   };
 
   collect.timeline.push(item);
+
+  if (type == "deposit") {
+    savings += amount;
+  } else {
+    savings -= amount;
+  }
+
+  document.querySelector("#txtSavings").innerText = savings
+    .toLocaleString("hi-IN", { style: "currency", currency: "INR" })
+    .split(".")[0];
+
+  renderTimeLine(collect.timeline, 5);
+  localStorage.setItem("appCollect", JSON.stringify(collect));
+}
+
+function closeFeedForm() {
+  let toggleType = document.querySelector("#toggleType");
+  let feedFrom = document.querySelector(".feed-form");
+  let btnMenu = document.querySelector("#btnMenu");
+  let btnClose = document.querySelector("#btnClose");
+  let btnfeed = document.getElementById("btnFeed");
+
+  feedFrom.style.display = "none";
+  btnfeed.innerHTML = "FEED";
+
+  document.querySelector("#inptAmount").value = "";
+
+  btnClose.style.display = "none";
+  btnMenu.style.display = "block";
+
+  // to reset toggle to deposit
+  if (btnfeed.style.backgroundColor != "rgb(137, 222, 141)") {
+    btnfeed.style.backgroundColor = "#89de8d";
+    toggleType.checked = false;
+    toggleType.dispatchEvent(new Event("change"));
+  }
 }
