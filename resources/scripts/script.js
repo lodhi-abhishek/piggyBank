@@ -85,10 +85,10 @@ document.querySelector("#toggleType").addEventListener("change", function () {
   if (this.checked) {
     toggleTypeClass.children[2].style.color = "#f393bc";
     btnFeed.style.backgroundColor = "#f393bc";
-    console.log(toggleTypeClass.children[2]);
+    // console.log(toggleTypeClass.children[2]);
     toggleTypeClass.children[0].style.color = "rgba(201, 179, 189, 0.52)";
   } else {
-    console.log(toggleTypeClass.children[0]);
+    // console.log(toggleTypeClass.children[0]);
     toggleTypeClass.children[0].style.color = "#89de8d";
     btnFeed.style.backgroundColor = "#89de8d";
     toggleTypeClass.children[2].style.color = "rgba(201, 179, 189, 0.52)";
@@ -125,9 +125,19 @@ function newFeed(amount, type) {
 
   if (type == "deposit") {
     savings += amount;
+    deposits.push(amount);
+    if (netSavings.length > 0)
+      netSavings.push(netSavings[netSavings.length - 1] + amount);
   } else {
     savings -= amount;
+    withdrawals.push(amount);
+    if (netSavings.length > 0)
+      netSavings.push(netSavings[netSavings.length - 1] - amount);
   }
+
+  if (netSavings.length == 0)
+    // Starting amount
+    netSavings.push(amount);
 
   document.querySelector("#txtSavings").innerText = savings
     .toLocaleString("hi-IN", { style: "currency", currency: "INR" })
@@ -158,4 +168,135 @@ function closeFeedForm() {
     toggleType.checked = false;
     toggleType.dispatchEvent(new Event("change"));
   }
+}
+
+// chart logic
+let deposits = [];
+let withdrawals = [];
+let netSavings = [];
+
+for (
+  let i = collect.timeline.length >= 7 ? collect.timeline.length - 7 : 0;
+  i < collect.timeline.length;
+  i++
+) {
+  let amount = 0;
+  /* add the previous amount form the staring net amount */
+  if (collect.timeline.length >= 7 && i == collect.timeline.length - 7) {
+    for (let j = 0; j < collect.timeline.length - 8; j++)
+      amount += collect.timeline[j].amount;
+  }
+
+  amount += collect.timeline[i].amount;
+
+  if (collect.timeline[i].type == "deposit") {
+    deposits.push(amount);
+    if (netSavings.length > 0)
+      netSavings.push(netSavings[netSavings.length - 1] + amount);
+  } else {
+    withdrawals.push(amount);
+    if (netSavings.length > 0)
+      netSavings.push(netSavings[netSavings.length - 1] - amount);
+  }
+
+  if (netSavings.length == 0) netSavings.push(amount);
+}
+
+let chartOptions = {
+  maintainAspectRatio: false,
+  elements: {
+    point: {
+      radius: 0,
+    },
+  },
+  scales: {
+    yAxes: [
+      {
+        ticks: {
+          beginAtZero: true,
+        },
+        display: false,
+        gridLines: {
+          display: false,
+          drawBorder: false,
+        },
+      },
+    ],
+    xAxes: [
+      {
+        display: false,
+        gridLines: {
+          display: false,
+          drawBorder: false,
+        },
+      },
+    ],
+  },
+  legend: {
+    display: false,
+  },
+};
+
+let chartSav = document.querySelector("#chartSavings").getContext("2d");
+let chartSavings = new Chart(chartSav, {
+  type: "line",
+  data: {
+    labels: netSavings,
+    datasets: [
+      {
+        backgroundColor: ["rgba(235, 211, 110, 0.6)"],
+        borderColor: ["rgba(235, 211, 110, 0.6)"],
+        borderWidth: 1,
+      },
+    ],
+  },
+  options: chartOptions,
+});
+
+let chtdepo = document.querySelector("#chartDeposits").getContext("2d");
+let chartDeposits = new Chart(chtdepo, {
+  type: "line",
+  data: {
+    labels: deposits,
+    datasets: [
+      {
+        data: deposits,
+        backgroundColor: ["rgba(136, 222, 140, 0.6)"],
+        borderColor: ["rgba(136, 222, 140, 0.6)"],
+        borderWidth: 1,
+      },
+    ],
+  },
+  options: chartOptions,
+});
+
+let chtwithdraw = document.getElementById("chartWithdraw").getContext("2d");
+let chartWithdraw = new Chart(chtwithdraw, {
+  type: "line",
+  data: {
+    labels: withdrawals,
+    datasets: [
+      {
+        data: withdrawals,
+        backgroundColor: ["rgba(244, 147, 188, 0.6)"],
+        borderColor: ["rgba(244, 147, 188, 0.6)"],
+        borderWidth: 1,
+      },
+    ],
+  },
+  options: chartOptions,
+});
+
+function reloadCharts(dataDeposits, dataWithdrawals, dataNetSavings) {
+  chartDeposits.config.data.labels = dataDeposits;
+  chartDeposits.config.data.datasets[0].data = dataDeposits;
+  chartDeposits.update();
+
+  chartWithdraw.config.data.labels = dataWithdrawals;
+  chartWithdraw.config.data.datasets[0].data = dataWithdrawals;
+  chartWithdraw.update();
+
+  chartSavings.config.data.labels = dataNetSavings;
+  chartSavings.config.data.datasets[0].data = dataNetSavings;
+  chartSavings.update();
 }
