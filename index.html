@@ -2,6 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐷</text></svg>"
+    />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
@@ -12,22 +17,15 @@
       rel="stylesheet"
     />
     <title>Simple Bank App</title>
-    <link
-      rel="icon"
-      href="data:image/svg+xml,
-    <svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22>
-      <text y=%22.9em%22 font-size=%2290%22>🐷</text>
-    </svg>"
-    />
-    <link rel="stylesheet" href="./resources/css/style.css" />
-    <link rel="stylesheet" href="./resources/css/reset.min.css" />
+    <script type="module" crossorigin src="/assets/main-DoHfruhm.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/flow-ClUK0Kmr.js">
+    <link rel="stylesheet" crossorigin href="/assets/flow-DhMOGB0R.css">
   </head>
-
   <body>
     <div class="sidebar">
       <ul>
-        <li><a href="timeline.html">Timeline</a></li>
-        <li onclick="clearData()">Clear Data</li>
+        <li><a href="/timeline.html">Timeline</a></li>
+        <li onclick="clearData()" id="cleardata">Clear Data</li>
       </ul>
     </div>
 
@@ -52,7 +50,7 @@
     </div>
 
     <div class="piggy">
-      <img src="resources/img/piggy-money-bank-5085515_1280.png" />
+      <img src="piggy-money-bank-5085515_1280.png" />
     </div>
 
     <div class="feed-form" style="display: none">
@@ -74,23 +72,14 @@
 
     <div class="charts">
       <div>
-        <!-- <canvas id="chartWithdraw" width="500" height="200"></canvas> -->
-        <canvas id="chartWithdraw"></canvas>
+        <canvas id="chartWithdraw"> </canvas>
       </div>
       <div>
-        <!-- <canvas id="chartDeposits" width="500" height="200"></canvas> -->
         <canvas id="chartDeposits"></canvas>
       </div>
       <div class="chart-last">
-        <!-- <canvas id="chartSavings" width="500" height="200"></canvas> -->
         <canvas id="chartSavings"></canvas>
       </div>
     </div>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"
-      charset="utf-8"
-    ></script>
-    <script src="./resources/scripts/flow.js"></script>
-    <script src="./resources/scripts/script.js"></script>
   </body>
 </html>

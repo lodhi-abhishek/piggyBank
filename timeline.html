@@ -2,6 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐷</text></svg>"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link
@@ -13,16 +17,16 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="resources/css/reset.min.css" />
-    <link rel="stylesheet" href="resources/css/style.css" />
-
     <title>TimeLine - PiggyBank</title>
+    <script type="module" crossorigin src="/assets/timeline-De8i70NS.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/flow-ClUK0Kmr.js">
+    <link rel="stylesheet" crossorigin href="/assets/flow-DhMOGB0R.css">
   </head>
   <body>
     <div class="sidebar">
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li onclick="clearData()">Clear Data</li>
+        <li><a href="/">Home</a></li>
+        <li id="cleardata">Clear Data</li>
       </ul>
     </div>
 
@@ -42,25 +46,7 @@
     </div>
 
     <ul class="timeline" id="listTimeline"></ul>
-    <script src="resources/scripts/flow.js"></script>
-    <script type="text/javascript">
-      var collect = localStorage.getItem("appCollect")
-        ? JSON.parse(localStorage.getItem("appCollect"))
-        : {
-            timeline: [],
-          };
+    <!-- <script type="module" src="/src/main.js"></script> -->
 
-      var savings = 0;
-      for (var i = 0; i < collect.timeline.length; i++) {
-        var amount = collect.timeline[i].amount;
-        if (collect.timeline[i].type == "deposit") savings = savings + amount;
-        else savings = savings - amount;
-      }
-      document.getElementById("txtSavings").innerText = savings
-        .toLocaleString("en-US", { style: "currency", currency: "USD" })
-        .split(".")[0];
-
-      renderTimeLine(collect.timeline);
-    </script>
   </body>
 </html>
