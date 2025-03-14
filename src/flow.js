@@ -24,16 +24,15 @@ function closeMenu() {
   menuOverlay.style.visibility = "hidden";
 }
 
-function renderTimeLine(timeline, limit = -1) {
+export function renderTimeLine(timeline, limit = -1) {
   let lstTimeline = document.querySelector("#listTimeline");
   lstTimeline.innerHTML = "";
 
   for (let i = timeline.length - 1; i >= 0; i--) {
-    // Excess Items not shown
     if (i == timeline.length - limit) break;
 
     let item = document.createElement("li");
-    item.classList.add(timeline[i].type); // withdraw or deposit class
+    item.classList.add(timeline[i].type);
 
     let numAmount = timeline[i].amount
       .toLocaleString("hi-IN", { style: "currency", currency: "INR" })
@@ -61,6 +60,8 @@ function renderTimeLine(timeline, limit = -1) {
     lstTimeline.appendChild(item);
   }
 }
+
+document.querySelector("#cleardata").addEventListener("click", clearData);
 
 function clearData() {
   localStorage.setItem("appCollect", "");

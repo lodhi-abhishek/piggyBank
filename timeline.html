@@ -13,16 +13,13 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="resources/css/reset.min.css" />
-    <link rel="stylesheet" href="resources/css/style.css" />
-
     <title>TimeLine - PiggyBank</title>
   </head>
   <body>
     <div class="sidebar">
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li onclick="clearData()">Clear Data</li>
+        <li><a href="/">Home</a></li>
+        <li id="cleardata">Clear Data</li>
       </ul>
     </div>
 
@@ -42,15 +39,19 @@
     </div>
 
     <ul class="timeline" id="listTimeline"></ul>
-    <script src="resources/scripts/flow.js"></script>
-    <script type="text/javascript">
-      var collect = localStorage.getItem("appCollect")
+    <!-- <script type="module" src="/src/main.js"></script> -->
+
+    <script type="module">
+      import "./src/style.css";
+      import { renderTimeLine } from "./src/flow.js"
+
+      let collect = localStorage.getItem("appCollect")
         ? JSON.parse(localStorage.getItem("appCollect"))
         : {
             timeline: [],
           };
 
-      var savings = 0;
+      let savings = 0;
       for (var i = 0; i < collect.timeline.length; i++) {
         var amount = collect.timeline[i].amount;
         if (collect.timeline[i].type == "deposit") savings = savings + amount;
