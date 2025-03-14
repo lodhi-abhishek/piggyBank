@@ -24,7 +24,7 @@ function closeMenu() {
   menuOverlay.style.visibility = "hidden";
 }
 
-export function renderTimeLine(timeline, limit = -1) {
+function renderTimeLine(timeline, limit = -1) {
   let lstTimeline = document.querySelector("#listTimeline");
   lstTimeline.innerHTML = "";
 
@@ -61,9 +61,33 @@ export function renderTimeLine(timeline, limit = -1) {
   }
 }
 
+function closeFeedForm() {
+  let toggleType = document.querySelector("#toggleType");
+  let feedFrom = document.querySelector(".feed-form");
+  let btnMenu = document.querySelector("#btnMenu");
+  let btnClose = document.querySelector("#btnClose");
+  let btnfeed = document.getElementById("btnFeed");
+
+  feedFrom.style.display = "none";
+  btnfeed.innerHTML = "FEED";
+
+  document.querySelector("#inptAmount").value = "";
+
+  btnClose.style.display = "none";
+  btnMenu.style.display = "block";
+
+  if (btnfeed.style.backgroundColor != "rgb(137, 222, 141)") {
+    btnfeed.style.backgroundColor = "#89de8d";
+    toggleType.checked = false;
+    toggleType.dispatchEvent(new Event("change"));
+  }
+}
+
 document.querySelector("#cleardata").addEventListener("click", clearData);
 
 function clearData() {
   localStorage.setItem("appCollect", "");
   window.location.reload();
 }
+
+export { renderTimeLine, closeFeedForm };

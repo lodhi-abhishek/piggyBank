@@ -1,6 +1,6 @@
 import "./style.css";
 import "./flow.js";
-import { renderTimeLine } from "./flow.js";
+import { renderTimeLine, closeFeedForm } from "./flow.js";
 import Chart from "chart.js/auto";
 
 export let collect = localStorage.getItem("appCollect")
@@ -40,7 +40,7 @@ document.getElementById("txtSavings").innerText = savings
 
 renderTimeLine(collect.timeline, 6);
 
-export function newFeed(amount, type) {
+function newFeed(amount, type) {
   amount = Number(amount);
   if (type == "withdraw" && savings < amount) {
     alert("Insufficient balance");
@@ -108,28 +108,6 @@ export function newFeed(amount, type) {
 
   reloadCharts(deposits, withdrawals, netSavings);
   localStorage.setItem("appCollect", JSON.stringify(collect));
-}
-
-export function closeFeedForm() {
-  let toggleType = document.querySelector("#toggleType");
-  let feedFrom = document.querySelector(".feed-form");
-  let btnMenu = document.querySelector("#btnMenu");
-  let btnClose = document.querySelector("#btnClose");
-  let btnfeed = document.getElementById("btnFeed");
-
-  feedFrom.style.display = "none";
-  btnfeed.innerHTML = "FEED";
-
-  document.querySelector("#inptAmount").value = "";
-
-  btnClose.style.display = "none";
-  btnMenu.style.display = "block";
-
-  if (btnfeed.style.backgroundColor != "rgb(137, 222, 141)") {
-    btnfeed.style.backgroundColor = "#89de8d";
-    toggleType.checked = false;
-    toggleType.dispatchEvent(new Event("change"));
-  }
 }
 
 document.getElementById("btnFeed").addEventListener("click", function () {
